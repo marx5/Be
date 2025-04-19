@@ -141,5 +141,3 @@ async function startServer() {
 
 // Chạy server
 startServer();
-
-module.exports = app; // Xuất app để có thể sử dụng trong các test case

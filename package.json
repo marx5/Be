@@ -8,8 +8,7 @@
     "init-db": "node src/scripts/init-db.js",
     "init-db:drop": "node src/scripts/init-db.js --drop",
     "init-db:seed": "node src/scripts/init-db.js --seed",
-    "init-db:drop-seed": "node src/scripts/init-db.js --drop --seed",
-    "test": "jest"
+    "init-db:drop-seed": "node src/scripts/init-db.js --drop --seed"
   },
   "keywords": [
     "backend",
@@ -42,7 +41,6 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
     "nodemon": "^3.1.9",
     "supertest": "^7.1.0"
   }
