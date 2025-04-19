@@ -1,0 +1,49 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for the project",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "init-db": "node src/scripts/init-db.js",
+    "init-db:drop": "node src/scripts/init-db.js --drop",
+    "init-db:seed": "node src/scripts/init-db.js --seed",
+    "init-db:drop-seed": "node src/scripts/init-db.js --drop --seed",
+    "test": "jest"
+  },
+  "keywords": [
+    "backend",
+    "node",
+    "express",
+    "sequelize",
+    "mysql"
+  ],
+  "author": "marx5",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "bcryptjs": "^3.0.2",
+    "bull": "^4.16.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "ioredis": "^5.6.1",
+    "jsonwebtoken": "^9.0.2",
+    "midtrans-client": "^1.4.2",
+    "multer": "^1.4.5-lts.2",
+    "mysql2": "^3.14.0",
+    "nodemailer": "^6.10.1",
+    "sequelize": "^6.37.7",
+    "sharp": "^0.34.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.1.0"
+  }
+}

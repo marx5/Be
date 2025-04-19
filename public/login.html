@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fashion Store</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .login-container input[type="checkbox"] {
+            margin: 10px 0;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: green;
+            margin-top: 10px;
+        }
+
+        .token {
+            margin-top: 10px;
+            word-wrap: break-word;
+        }
+
+        .g-recaptcha {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <label>
+            <input type="checkbox" id="rememberMe"> Remember Me
+        </label>
+        <div class="g-recaptcha" data-sitekey="6Ldovh0rAAAAAHH7Q_XMaQ4DRwGWAcT6sqACClVC"></div>
+        <button onclick="login()">Login</button>
+        <p>Don't have an account? <a href="/public/register.html">Register</a></p>
+        <div id="message"></div>
+        <div id="token" class="token"></div>
+    </div>
+
+    <script>
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const gRecaptchaResponse = grecaptcha.getResponse();
+
+            if (!gRecaptchaResponse) {
+                document.getElementById('message').innerHTML = '<p class="error">Please complete the CAPTCHA</p>';
+                return;
+            }
+
+            const data = {
+                email,
+                password,
+                gRecaptchaResponse,
+                rememberMe,
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('message').innerHTML = '<p class="success">Login successful!</p>';
+                    document.getElementById('token').innerHTML = `Bearer Token: ${result.accessToken}`;
+                } else {
+                    document.getElementById('message').innerHTML = `<p class="error">${result.error || 'Login failed'}</p>`;
+                }
+            } catch (error) {
+                document.getElementById('message').innerHTML = '<p class="error">Server error</p>';
+            }
+        }
+    </script>
+</body>
+
+</html>
